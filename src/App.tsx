@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { format, addMinutes, startOfDay } from 'date-fns';
+import { addMinutes, startOfDay } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
-import { Plus, X, Clock } from 'lucide-react';
+import { X, Clock } from 'lucide-react';
 
 const COMMON_ZONES = [
   { value: 'UTC', label: 'UTC' },
@@ -17,7 +17,7 @@ const COMMON_ZONES = [
 function App() {
   const [selectedZones, setSelectedZones] = useState(['UTC', 'America/Los_Angeles', 'Asia/Kolkata']);
   const [sliderValue, setSliderValue] = useState(12 * 60); // minutes from start of day (0 to 24*60)
-  const [baseDate, setBaseDate] = useState(() => startOfDay(new Date()));
+  const [baseDate] = useState(() => startOfDay(new Date()));
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSliderValue(parseInt(e.target.value, 10));
