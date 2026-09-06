@@ -1,10 +1,7 @@
 version: '3.8'
-
 services:
-  app:
+  timezone-slider:
     build: .
     ports:
-      - "3008:3008"
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - "3008:80"
+    restart: unless-stopped

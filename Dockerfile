@@ -1,12 +1,11 @@
-FROM node:18-alpine
-
+FROM node:22-slim AS builder
 WORKDIR /app
-
-COPY package.json package-lock.json* ./
+COPY package*.json ./
 RUN npm ci
-
 COPY . .
+RUN npm run build
 
-EXPOSE 3008
-
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3008"]
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
